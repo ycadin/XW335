@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-avec-garde-fou
+spec:
+  containers:
+    - name: serveurweb
+      image: nginx:alpine
+      resources:
+        limits:
+          memory: 20Mi

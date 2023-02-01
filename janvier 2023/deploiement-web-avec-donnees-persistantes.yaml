@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-dp
+  name: web-dp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-dp
+  template:
+    metadata:
+      labels:
+        app: web-dp
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        volumeMounts:
+        - name: fichierswebstatiques
+          mountPath: /usr/share/nginx/html  
+      volumes:
+      - name: fichierswebstatiques
+        persistentVolumeClaim:
+          claimName: demande-volume

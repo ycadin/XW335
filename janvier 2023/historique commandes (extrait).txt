@@ -1,0 +1,71 @@
+k rollout status deployment serviceweb 
+watch -n ,1 microk8s.kubectl get po -o custom-columns="Pod:.metadata.name,Image:.spec.containers[0].image" -l app==serviceweb
+k rollout history deploy serviceweb 
+k get ns
+k get all --namespace kube-system 
+k get all --namespace kube-public 
+k get all --namespace kube-node-lease 
+k create namespace prod
+k create namespace preprod
+k get ns
+k run premierpod --image nginx:alpine -n preprod 
+k get all -n preprod 
+k get po premierpod 
+k config view
+k config view --raw
+k config set-context --current --namespace preprod
+k config view
+k get all
+k config set-context --current --namespace=
+k config view
+k get po
+k get all -n preprod 
+k delete ns preprod 
+k get all -n preprod 
+k get ns
+k describe po premierpod
+vi pod-avec-garde-fou.yaml
+k create -f pod-avec-garde-fou.yaml --dry-run=server
+k create -f pod-avec-garde-fou.yaml 
+k get po pod-avec-garde-fou -o wide
+k describe po pod-avec-garde-fou 
+watch -n ,1 microk8s.kubectl get po -o custom-columns="Pod:.metadata.name,Image:.spec.containers[0].resources.limits.memory" -l app==serviceweb
+k logs -f serviceweb-745f68dc65-xk44j 
+vi volume-nfs.yaml
+k create -f volume-nfs.yaml --dry-run=server
+k create -f volume-nfs.yaml 
+k get all
+k get pv
+k get pv -n kube-system
+k get pv -n kube-public 
+k get pv -n kube-node-lease 
+vi demande-volume.yaml
+k create -f demande-volume.yaml --dry-run=server
+k create -f demande-volume.yaml 
+k get pv,pvc
+cp modele_de_deploiement.yaml deploiement-web-avec-donnees-persistantes.yaml
+vi deploiement-web-avec-donnees-persistantes.yaml 
+k create -f deploiement-web-avec-donnees-persistantes.yaml --dry-run=server
+k create -f deploiement-web-avec-donnees-persistantes.yaml 
+k get all -l app=web-dp -o wide
+curl 10.1.112.42
+curl 10.1.15.52
+curl 10.1.137.234
+cat volume-nfs.yaml 
+dpkg -l nfs-common
+k expose deploy web-dp --name web-dp-public --port 80 --type NodePort
+k get all -l app=web-dp -o wide 
+microk8s enable dashboard
+k get all -n kube-system
+kubectl create cronjob my-job --image=busybox --schedule="*/2 * * * *" -- date
+k get cj,jobs
+k logs jobs/my-job-27913932 
+k describe cj my-job 
+k create configmap essaiconfig --from-literal bavard=non
+k get cm
+k describe cm essaiconfig 
+cp pod-avec-garde-fou.yaml pod-custom.yaml
+vi pod-custom.yaml 
+k create -f pod-custom.yaml --dry-run=server
+k create -f pod-custom.yaml 
+k exec -it pod-custom -- ash -c "echo $BAVARD"

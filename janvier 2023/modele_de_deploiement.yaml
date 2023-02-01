@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: $$modele-deploiement$$
+  name: $$modele-deploiement$$
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: $$modele-deploiement$$
+  template:
+    metadata:
+      labels:
+        app: $$modele-deploiement$$
+    spec:
+      containers:
+      - image: $$image$$
+        name: $$nom$$
