@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: minage
+  name: minage
+  namespace: default
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: minage
+  template:
+    metadata:
+      labels:
+        app: minage
+    spec:
+#      nodeSelector:
+#        carte_graphique: ASUS77V
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: carte_graphique
+                operator: In
+                values:
+                - ASUS77V
+                - NV745X
+      containers:
+      - name: mineur
+        image: nginx:alpine
+        imagePullPolicy: IfNotPresent

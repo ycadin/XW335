@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: service-web
+  name: service-web
+  annotations:
+    date-changement-image: "15 juin 2022"
+    raison-changement-image: "La version nginx:alpine posait un problème sur la partie PHP et la version 1.17 était trop ancienne"
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: service-web
+  template:
+    metadata:
+      labels:
+        app: service-web
+    spec:
+      containers:
+      - name: web
+        image: nginx:1.22                      # modification par Yannick le 15 juin 2022 (tour à tour nginx:alpine puis nginx:1.17)
+        imagePullPolicy: IfNotPresent

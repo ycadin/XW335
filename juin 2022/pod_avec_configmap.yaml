@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: un-pod-perso
+spec:
+    containers:
+    - name: nginx
+      image: nginx:alpine
+      env:
+      - name: BAVARD
+        valueFrom:
+            configMapKeyRef:         # le pendant de : k create cm essaiconfig --from-literal bavard=non
+                name: essaiconfig    # Référence : https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-pod-configmap/
+                key: bavard

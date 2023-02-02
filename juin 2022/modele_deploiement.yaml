@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: modele
+  name: modele
+  namespace: default
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: modele
+  template:
+    metadata:
+      labels:
+        app: modele
+    spec:
+      containers:
+      - name: l-image-xh5gt
+        image: l_image
+        imagePullPolicy: IfNotPresent

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+  labels:
+    app: nom_du_daemonset
+  name: nom_du_daemonset
+spec:
+  selector:
+    matchLabels:
+      app: nom_du_daemonset
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: nom_du_daemonset
+    spec:
+      containers:
+      - name: nom_du_conteneur
+        image: une_image
+        imagePullPolicy: IfNotPresent

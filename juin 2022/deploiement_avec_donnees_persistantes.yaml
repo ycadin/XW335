@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ddp
+  name: ddp
+  namespace: default
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ddp
+  template:
+    metadata:
+      labels:
+        app: ddp
+    spec:
+      containers:
+      - name: web
+        image: nginx:alpine
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+                - name: fichierswebstatiques
+                  mountPath: /usr/share/nginx/html
+      volumes:
+              - name: fichierswebstatiques
+                persistentVolumeClaim:
+                        claimName: demande-volume

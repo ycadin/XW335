@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: un-pod
+spec:
+    containers:
+    - name: nginx
+      image: nginx:alpine
+      livenessProbe:	# Référence : https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+          httpGet:			# et sinon exec: (comme montré en exemple dans la documentation ci-dessus)
+              path: /marchebien.html
+              port: 80			# vérifier si c'est indispensable (pas de mention de port par défaut dans la documentation ci-dessus)
+          initialDelaySeconds: 3
+          periodSeconds: 5
