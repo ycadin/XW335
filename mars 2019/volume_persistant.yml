@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: volume-qui-dure
+spec:
+  storageClassName: manual
+  capacity:
+    storage: "500Mi"
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /donnees/durables

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    etape: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx:alpine
+    imagePullPolicy: IfNotPresent
+  nodeSelector:
+    transcodeur: GP789Z
